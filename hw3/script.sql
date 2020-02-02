@@ -1,0 +1,62 @@
+/*	Christian Marcol
+	CSC355
+	Section402
+	Assignment3
+	10/07/2019
+*/
+
+SELECT Name, City, State
+FROM LIBRARY 
+WHERE State = 'NJ' OR State = 'PA';
+
+SELECT Name
+FROM LIBRARY
+WHERE Name LIKE 'Main%'
+ORDER BY Name;
+
+SELECT Title, Year, Price
+FROM BOOK
+WHERE Author = 'Allen Steele' AND Year <= 2010
+ORDER BY Year;
+
+SELECT Author, AVG(Price) AS "Average Book Price" 
+FROM BOOK
+GROUP BY Author
+ORDER BY AVG(Price) ASC;
+
+SELECT COUNT(Title) AS "Books Written", Year
+FROM BOOK
+GROUP BY Year
+ORDER BY Year ASC;
+
+SELECT LibraryID, MIN(Copies) AS "Smallest Order"
+FROM LIBRARY
+INNER JOIN BOOKORDER
+ON LIBRARY.ID = BOOKORDER,LibraryID
+GROUP BY LibraryID;
+
+SELECT Name 
+FROM LIBRARY
+INNER JOIN BOOKORDER
+ON LIBRARY.ID = BOOKORDER.LibraryID
+WHERE OrderDate = '15-FEB-18';
+
+SELECT Title 
+FROM BOOK
+INNER JOIN BOOKORDER
+ON BOOK.ISBN = BOOKORDER.ISBN
+INNER JOIN LIBRARY
+ON BOOKORDER.LibraryID = LIBRARY.ID
+WHERE Name = 'Main Library of Seminole'
+ORDER BY Title;
+
+SELECT BOOKORDER.ISBN, Title, SUM(Copies) AS "Copies Available"
+FROM BOOK
+INNER JOIN BOOKORDER
+ON BOOK.ISBN = BOOKORDER.ISBN
+WHERE Year = 2008
+GROUP BY BOOKORDER.ISBN, Title;
+
+
+
+
